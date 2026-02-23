@@ -1,0 +1,2 @@
+This is the modern way to handle files in Python.
+This line is appended to the file.
