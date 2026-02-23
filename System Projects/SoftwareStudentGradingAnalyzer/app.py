@@ -1,45 +1,57 @@
-print("Student Grade Analyzer")
-# Function to calculate average grade
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+
+# ----------------------
+# Logic functions
+# ----------------------
+
 def calculate_average(grades):
-    if len(grades) == 0:
+    if not grades:
         return 0
     return sum(grades) / len(grades)
-# Function to determine letter grade
-def determine_letter_grade(average):
-    if average >= 90:
-        return 'A'
-    elif average >= 80:
-        return 'B'
-    elif average >= 70:
-        return 'C'
-    elif average >= 60:
-        return 'D'
-    else:
-        return 'F'
-# Main function to analyze student grades
-def analyze_student_grades():
-    student_name = input("Enter the student's name: ")
-    grade = []
-    while True:
-            g = input("Enter a grade (or 'done' to finish): ")
-            if g.lower() == 'done':
-                break
-            grade.append(float(g))
 
 
-           # writing the grade to a file  
-    with open("grades.txt", "a") as file:
-                lines = f"{student_name}: {grade}\n"
-                file.write(lines)
-    print("Saved grades to file!\n")
+def determine_letter_grade(avg):
+    if avg >= 90: return "A"
+    elif avg >= 80: return "B"
+    elif avg >= 70: return "C"
+    elif avg >= 60: return "D"
+    else: return "F"
 
-# Reading file
 
-    with open("grades.txt", "r") as file:
-        print("Grades from file:")
-        for line in file:
-            print(line.strip())
+# ----------------------
+# Routes
+# ----------------------
 
-# Run the grade analyzer
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+@app.route("/submit", methods=["POST"])
+def submit():
+
+    name = request.form["name"]
+    grades = [float(x) for x in request.form["grades"].split(",")]
+
+    avg = calculate_average(grades)
+    letter = determine_letter_grade(avg)
+
+    # save to file
+    with open("grades.txt", "a") as f:
+        f.write(f"{name}: {grades} -> {avg:.2f} ({letter})\n")
+
+    return render_template(
+        "index.html",
+        result={"average": avg, "letter": letter}
+    )
+
+
+# ----------------------
+# Run server
+# ----------------------
+
 if __name__ == "__main__":
-    analyze_student_grades()
+    app.run(debug=True)

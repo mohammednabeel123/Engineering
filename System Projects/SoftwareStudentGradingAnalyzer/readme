@@ -1,0 +1,88 @@
+# Student Grade Management System
+
+A simple full-stack web application for managing student grades.
+
+Built using:
+- Python (Flask backend)
+- HTML/CSS/JavaScript (frontend)
+- Text file storage (grades.txt)
+
+---
+
+## Features
+
+- Add student name and grades
+- Automatically calculate average
+- Assign letter grade (A–F)
+- Store results in file
+- View saved records
+- Simple and extendable architecture
+
+---
+
+## Project Structure
+
+StudentGradeSystem/
+│
+├── app.py              # Flask backend server
+├── grades.txt          # Data storage
+├── requirements.txt    # Dependencies
+│
+├── templates/          # Dynamic HTML pages
+│   └── index.html
+│
+├── static/             # Static assets
+│   ├── css/
+│   ├── js/
+│
+└── README.md
+
+---
+
+## Installation
+
+1. Clone project
+2. Install dependencies
+
+pip install flask
+
+---
+
+## Run the app
+
+python app.py
+
+Open browser:
+http://127.0.0.1:5000
+
+---
+
+## How it Works
+
+Frontend → Flask → File Storage
+
+1. User submits grades via form
+2. Flask processes data
+3. Calculates average and letter grade
+4. Saves to grades.txt
+5. Displays result
+
+---
+
+## Future Improvements
+
+- Search students
+- Edit/Delete grades
+- Charts & statistics
+- Login system
+- Database (SQLite/MySQL)
+- Export CSV
+- REST API
+
+---
+
+## Author
+
+Nabeel Mohammed  
+Electrical & Electronics Engineering Student  
+Frontend + Embedded Systems Developer
